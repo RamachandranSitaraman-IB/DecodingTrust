@@ -36,6 +36,7 @@ def main(raw_config: Union[DictConfig, Dict]) -> None:
 
     for name, module_name in PERSPECTIVES.items():
         if getattr(config, name) is not None:
+            print("modulename", module_name)
             perspective_module = import_module(module_name)
             perspective_module.main(config)
 
