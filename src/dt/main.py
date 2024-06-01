@@ -33,7 +33,8 @@ def main(raw_config: Union[DictConfig, Dict]) -> None:
     #config: BaseConfig = OmegaConf.to_object(raw_config)
     config = raw_config
 
-    if not isinstance(config, BaseConfig):
+    #if not isinstance(config, BaseConfig):
+    if not isinstance(config, DictConfig):
         raise ValueError(f"Wrong type of configuration generated: {type(config)}")
 
     for name, module_name in PERSPECTIVES.items():
