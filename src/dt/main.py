@@ -20,12 +20,15 @@ PERSPECTIVES = {
 }
 
 
+@dataclass
 class AppConfig:
     pass
 
+@dataclass
 class SlurmConfig:
     pass
 
+@dataclass
 class JoblibConfig:
     pass
 
