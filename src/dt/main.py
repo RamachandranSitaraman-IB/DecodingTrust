@@ -7,6 +7,7 @@ from omegaconf import OmegaConf, DictConfig
 from hydra.core.config_store import ConfigStore
 from dt.summarize import summarize_results
 from dataclasses import dataclass
+from configs.configs import *
 
 PERSPECTIVES = {
     "stereotype": "dt.perspectives.stereotype.bias_generation",
@@ -38,6 +39,7 @@ cs = ConfigStore.instance()
 cs.store( name="app_config", node=AppConfig)
 cs.store( name="slurm_config", node=SlurmConfig)
 cs.store( name="joblib_config", node=JoblibConfig)
+cs.store(name="adv_glue", node=AdvGLUEConfig)
 
 # Using the new config group feature
 @hydra.main(config_path="configs", config_name="app_config", version_base="1.2")
