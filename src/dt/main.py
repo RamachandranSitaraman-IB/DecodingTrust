@@ -6,6 +6,7 @@ from dt.configs.configs import BaseConfig
 from omegaconf import OmegaConf, DictConfig
 from hydra.core.config_store import ConfigStore
 from dt.summarize import summarize_results
+from dataclasses import dataclass
 
 PERSPECTIVES = {
     "stereotype": "dt.perspectives.stereotype.bias_generation",
