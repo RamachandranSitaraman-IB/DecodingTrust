@@ -28,7 +28,7 @@ cs.store(name="slurm_config", node=BaseConfig)
 cs.store(name="joblib_config", node=BaseConfig)
 
 
-@hydra.main(config_path="configs", config_name="config", version_base="1.2")
+@hydra.main(config_path="configs", config_name="config", version_base="1.1")
 def main(raw_config: Union[DictConfig, Dict]) -> None:
     # The 'validator' methods will be called when you run the line below
     print("RAWConfig", raw_config)
