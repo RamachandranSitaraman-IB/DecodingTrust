@@ -20,8 +20,10 @@ PERSPECTIVES = {
 }
 
 
+class AppConfig(BaseConfig):
+    pass
 cs = ConfigStore.instance()
-cs.store(name="config", node=BaseConfig)
+cs.store(name="config", node=AppConfig)
 cs.store(name="slurm_config", node=BaseConfig)
 cs.store(name="joblib_config", node=BaseConfig)
 
