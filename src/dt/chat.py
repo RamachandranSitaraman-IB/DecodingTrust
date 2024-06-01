@@ -41,6 +41,7 @@ class Chat(ABC):
         kwargs["device_map"] = main_config.model_config.device_map
 
         model_name: str = main_config.model_config.model
+        print("ModelName", model_name)
         if model_name.lower().startswith("openai/"):
             return OpenAIChat(model_name, **kwargs)
         elif model_name.startswith("hf/"):
