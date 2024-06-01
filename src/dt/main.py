@@ -39,7 +39,9 @@ cs = ConfigStore.instance()
 cs.store( name="app_config", node=AppConfig)
 cs.store( name="slurm_config", node=SlurmConfig)
 cs.store( name="joblib_config", node=JoblibConfig)
-cs.store(name="adv_glue", node=AdvGLUEConfig)
+#cs.store(name="adv_glue", node=AdvGLUEConfig)
+cs.store(group="advglue", name="default", node=AdvGLUEConfig)
+cs.store(group="toxicity", name="default", node=ToxicityConfig)
 
 # Using the new config group feature
 @hydra.main(config_path="configs", config_name="app_config", version_base="1.2")
