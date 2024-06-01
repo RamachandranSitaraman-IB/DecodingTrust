@@ -377,6 +377,9 @@ Please cite the paper as follows if you use the data or code from DecodingTrust:
   year={2023}
 }
 ```
+## Docker
+docker run -it --entrypoint /bin/bash -v $(pwd):/app --gpus all danielz01/decoding-trust
+
 
 ## Contact
 Please reach out to us if you have any questions or suggestions. You can submit an issue or pull request, or send an email to boxinw2@illinois.edu.

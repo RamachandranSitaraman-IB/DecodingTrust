@@ -20,22 +20,28 @@ PERSPECTIVES = {
 }
 
 
-class AppConfig(BaseConfig):
+class AppConfig:
     pass
+
+class SlurmConfig:
+    pass
+
+class JoblibConfig:
+    pass
+
+# Instantiate the ConfigStore and register your configurations
 cs = ConfigStore.instance()
-cs.store(name="config", node=AppConfig)
-cs.store(name="slurm_config", node=BaseConfig)
-cs.store(name="joblib_config", node=BaseConfig)
+cs.store(group="main", name="app_config", node=AppConfig)
+cs.store(group="main", name="slurm_config", node=SlurmConfig)
+cs.store(group="main", name="joblib_config", node=JoblibConfig)
 
-
-@hydra.main(config_path="configs", config_name="config", version_base="1.1")
-def main(raw_config: Union[DictConfig, Dict]) -> None:
-    # The 'validator' methods will be called when you run the line below
-    print("RAWConfig", raw_config)
-    #config: BaseConfig = OmegaConf.to_object(raw_config)
+# Using the new config group feature
+@hydra.main(config_path="configs", config_name="main/app_config", version_base="1.2")
+def main(raw_config: DictConfig) -> None:
+    print("Configuration:", raw_config)
     config = raw_config
 
-    #if not isinstance(config, BaseConfig):
+    # if not isinstance(config, BaseConfig):
     if not isinstance(config, DictConfig):
         raise ValueError(f"Wrong type of configuration generated: {type(config)}")
 
@@ -46,6 +52,26 @@ def main(raw_config: Union[DictConfig, Dict]) -> None:
             perspective_module.main(config)
 
     summarize_results()
+
+
+# @hydra.main(config_path="configs", config_name="config", version_base="1.2")
+# def main(raw_config: Union[DictConfig, Dict]) -> None:
+#     # The 'validator' methods will be called when you run the line below
+#     print("RAWConfig", raw_config)
+#     #config: BaseConfig = OmegaConf.to_object(raw_config)
+#     config = raw_config
+#
+#     #if not isinstance(config, BaseConfig):
+#     if not isinstance(config, DictConfig):
+#         raise ValueError(f"Wrong type of configuration generated: {type(config)}")
+#
+#     for name, module_name in PERSPECTIVES.items():
+#         if getattr(config, name) is not None:
+#             print("modulename", module_name)
+#             perspective_module = import_module(module_name)
+#             perspective_module.main(config)
+#
+#     summarize_results()
 
 
 if __name__ == "__main__":
