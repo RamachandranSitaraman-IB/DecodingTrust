@@ -35,9 +35,9 @@ class JoblibConfig:
 
 # Instantiate the ConfigStore and register your configurations
 cs = ConfigStore.instance()
-cs.store(group="main", name="app_config", node=AppConfig)
-cs.store(group="main", name="slurm_config", node=SlurmConfig)
-cs.store(group="main", name="joblib_config", node=JoblibConfig)
+cs.store( name="app_config", node=AppConfig)
+cs.store( name="slurm_config", node=SlurmConfig)
+cs.store( name="joblib_config", node=JoblibConfig)
 
 # Using the new config group feature
 @hydra.main(config_path="configs", config_name="main/app_config", version_base="1.2")
