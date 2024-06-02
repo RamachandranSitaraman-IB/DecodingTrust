@@ -142,10 +142,10 @@ class HarmfulnessConfig:
 
 @dataclass
 class ModelConfig:
-    #model: str = "openai/gpt-3.5-turbo-0301"
-    model: str = "hf/meta-llama/Llama-2-13b-chat"
+    model: str = "openai/gpt-3.5-turbo-0301"
+    #model: str = "hf/meta-llama/Llama-2-13b-chat"
     type: ModelType = ModelType.CHAT
-    conv_template: Optional[str] = "llama-2"
+    conv_template: Optional[str] = None
     model_loader: ModelLoader = ModelLoader.HF
     torch_dtype: Optional[WeightType] = WeightType.BFLOAT16
     trust_remote_code: bool = True
