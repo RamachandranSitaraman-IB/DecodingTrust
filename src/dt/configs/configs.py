@@ -127,7 +127,7 @@ class HarmfulnessConfig:
 @dataclass
 class ModelConfig:
     #model: str = "openai/gpt-3.5-turbo-0301"
-    model: str = "hf/meta-llama/Llama-2-7b-chat"
+    model: str = "hf/meta-llama/Llama-2-13b-chat"
     type: ModelType = ModelType.CHAT
     conv_template: Optional[str] = None
     model_loader: ModelLoader = ModelLoader.HF
@@ -144,7 +144,7 @@ class ModelConfig:
 @dataclass
 class BaseConfig:
     # TODO: Handle device map - change HELM's default behavior
-    model_config: ModelConfig #= field(default_factory=ModelConfig)
+    model_config: ModelConfig = field(default_factory=ModelConfig)
     disable_sys_prompt: Optional[bool] = False
 
     key: Optional[str] = None  # OpenAI API Key or Huggingface Secret
