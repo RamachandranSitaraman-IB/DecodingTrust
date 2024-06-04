@@ -11,13 +11,13 @@ from dt.summarize import summarize_results
 PERSPECTIVES = {
     "stereotype": "dt.perspectives.stereotype.bias_generation",
     "advglue": "dt.perspectives.advglue.gpt_eval",
-    "toxicity": "dt.perspectives.toxicity.text_generation_hydra",
-    "fairness": "dt.perspectives.fairness.fairness_evaluation",
-    "privacy": "dt.perspectives.privacy.privacy_evaluation",
-    "adv_demonstration": "dt.perspectives.adv_demonstration.adv_demonstration_hydra",
-    "machine_ethics": "dt.perspectives.machine_ethics.test_machine_ethics",
-    "ood": "dt.perspectives.ood.evaluation_ood",
-    "harmfulness": "dt.perspectives.harmfulness.text_generation_hydra"
+    # "toxicity": "dt.perspectives.toxicity.text_generation_hydra",
+    # "fairness": "dt.perspectives.fairness.fairness_evaluation",
+    # "privacy": "dt.perspectives.privacy.privacy_evaluation",
+    # "adv_demonstration": "dt.perspectives.adv_demonstration.adv_demonstration_hydra",
+    # "machine_ethics": "dt.perspectives.machine_ethics.test_machine_ethics",
+    # "ood": "dt.perspectives.ood.evaluation_ood",
+    # "harmfulness": "dt.perspectives.harmfulness.text_generation_hydra"
 }
 
 
@@ -36,12 +36,12 @@ def main(raw_config: Union[DictConfig, Dict]) -> None:
     if not isinstance(config, BaseConfig):
         raise ValueError(f"Wrong type of configuration generated: {type(config)}")
 
-    # for name, module_name in PERSPECTIVES.items():
-    #     print("NAMEModuleName", name, module_name)
-    #     if getattr(config, name) is not None:
-    #         perspective_module = import_module(module_name)
-    #         print("PerspecitiveModule", perspective_module)
-    #         perspective_module.main(config)
+    for name, module_name in PERSPECTIVES.items():
+        print("NAMEModuleName", name, module_name)
+        if getattr(config, name) is not None:
+            perspective_module = import_module(module_name)
+            print("PerspecitiveModule", perspective_module)
+            perspective_module.main(config)
 
     summarize_results()
 
