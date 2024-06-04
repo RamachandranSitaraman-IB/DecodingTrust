@@ -9,7 +9,7 @@ from hydra.core.config_store import ConfigStore
 from dt.summarize import summarize_results
 
 PERSPECTIVES = {
-    "stereotype": "dt.perspectives.stereotype.bias_generation",
+    #"stereotype": "dt.perspectives.stereotype.bias_generation",
     "advglue": "dt.perspectives.advglue.gpt_eval",
     # "toxicity": "dt.perspectives.toxicity.text_generation_hydra",
     # "fairness": "dt.perspectives.fairness.fairness_evaluation",
