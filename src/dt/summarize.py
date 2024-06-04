@@ -237,7 +237,7 @@ def summarize_results():
 
     return summarized_results
 
-x
+
 def sort_keys(obj):
     if isinstance(obj, dict):
         return {k: sort_keys(obj[k]) for k in sorted(obj.keys())}
