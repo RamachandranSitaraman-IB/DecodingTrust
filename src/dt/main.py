@@ -36,12 +36,12 @@ def main(raw_config: Union[DictConfig, Dict]) -> None:
     if not isinstance(config, BaseConfig):
         raise ValueError(f"Wrong type of configuration generated: {type(config)}")
 
-    for name, module_name in PERSPECTIVES.items():
-        print("NAMEModuleName", name, module_name)
-        if getattr(config, name) is not None:
-            perspective_module = import_module(module_name)
-            print("PerspecitiveModule", perspective_module)
-            perspective_module.main(config)
+    # for name, module_name in PERSPECTIVES.items():
+    #     print("NAMEModuleName", name, module_name)
+    #     if getattr(config, name) is not None:
+    #         perspective_module = import_module(module_name)
+    #         print("PerspecitiveModule", perspective_module)
+    #         perspective_module.main(config)
 
     summarize_results()
 

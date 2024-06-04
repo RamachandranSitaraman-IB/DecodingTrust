@@ -385,3 +385,7 @@ docker run -it --entrypoint /bin/bash -v $(pwd):/app --gpus all danielz01/decodi
 Please reach out to us if you have any questions or suggestions. You can submit an issue or pull request, or send an email to boxinw2@illinois.edu.
 
 Thank you for your interest in DecodingTrust. We hope our work will contribute to a more trustworthy, fair, and robust AI future.
+
+## Running scan
+(ART) ubuntu@ip-10-0-24-54:~/sitaraman/Styrk/DecodingTrust/DecodingTrust/src$ python -m  dt.main +key=sk-YourOpenAIKey +advglue=vicuna
+
