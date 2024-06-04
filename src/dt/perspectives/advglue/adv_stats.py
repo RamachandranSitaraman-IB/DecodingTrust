@@ -18,6 +18,7 @@ def main():
     }
 
     base_dir = ""
+    print("Target Models", target_models)
     for target_model in target_models:
         for base_model in BASE_MODELS:
             if os.path.exists(os.path.join(base_dir, target_model, f"{base_model}-demo.json")):

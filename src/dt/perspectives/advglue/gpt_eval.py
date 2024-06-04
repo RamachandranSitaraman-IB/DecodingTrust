@@ -271,68 +271,70 @@ def classify(OPTS, model, dataset, task_name, current_results=None, prompt_token
 
 
 def main(OPTS):
-    TASK2SHORTPROMPT["mnli-mm"] = TASK2SHORTPROMPT["mnli"]
-    if not os.path.exists("./.cache"):
-        os.makedirs("./.cache")
-    with TemporaryDirectory(dir="./.cache") as dirname:
-        model = Chat.from_helm(OPTS, cache=dirname)
+    evaluate_scores = False
+    if evaluate_scores:
+        TASK2SHORTPROMPT["mnli-mm"] = TASK2SHORTPROMPT["mnli"]
+        if not os.path.exists("./.cache"):
+            os.makedirs("./.cache")
+        with TemporaryDirectory(dir="./.cache") as dirname:
+            model = Chat.from_helm(OPTS, cache=dirname)
 
-        if OPTS.advglue.data_file and os.path.exists(OPTS.advglue.data_file):
-            # Use local dataset
-            with open(OPTS.advglue.data_file) as f:
-                datasets = json.load(f)
-        elif OPTS.advglue.data_file:
-            # Use HF dataset
-            assert OPTS.advglue.data_file in ["alpaca", "vicuna", "stable-vicuna"]
-            datasets = load_dataset("AI-Secure/DecodingTrust", name="adv-glue-plus-plus")
-            datasets = datasets.filter(lambda example: example["model"] == OPTS.advglue.data_file)
-        else:
-            datasets = None
-
-        prompt_tokens, completion_tokens, price = 0, 0, 0
-        if OPTS.advglue.resume:
-            assert os.path.exists(OPTS.advglue.out_file)
-            with open(OPTS.advglue.out_file) as f:
-                results = json.load(f)
-        else:
-            results = {}
-
-        tasks = [OPTS.advglue.task] if isinstance(OPTS.advglue.task, str) else OPTS.advglue.task
-        for task_name in tasks:  # , dataset in datasets.items():
-            print(f"========== Evaluating on {task_name} ==========")
-            if datasets:
-                dataset = datasets[task_name]
+            if OPTS.advglue.data_file and os.path.exists(OPTS.advglue.data_file):
+                # Use local dataset
+                with open(OPTS.advglue.data_file) as f:
+                    datasets = json.load(f)
+            elif OPTS.advglue.data_file:
+                # Use HF dataset
+                assert OPTS.advglue.data_file in ["alpaca", "vicuna", "stable-vicuna"]
+                datasets = load_dataset("AI-Secure/DecodingTrust", name="adv-glue-plus-plus")
+                datasets = datasets.filter(lambda example: example["model"] == OPTS.advglue.data_file)
             else:
-                dataset = load_dataset("glue", tasks_to_glue[task_name], split="validation")
+                datasets = None
 
-            if OPTS.advglue.resume and task_name in results:
-                current_progress = len(results[task_name]["predictions"])
-                if current_progress == len(dataset):
-                    continue
-                elif current_progress > len(dataset):
-                    raise ValueError("Incorrect dataset during resuming")
+            prompt_tokens, completion_tokens, price = 0, 0, 0
+            if OPTS.advglue.resume:
+                assert os.path.exists(OPTS.advglue.out_file)
+                with open(OPTS.advglue.out_file) as f:
+                    results = json.load(f)
+            else:
+                results = {}
+
+            tasks = [OPTS.advglue.task] if isinstance(OPTS.advglue.task, str) else OPTS.advglue.task
+            for task_name in tasks:  # , dataset in datasets.items():
+                print(f"========== Evaluating on {task_name} ==========")
+                if datasets:
+                    dataset = datasets[task_name]
                 else:
-                    if isinstance(dataset, Dataset):
-                        dataset = dataset.select(range(current_progress + 1, len(dataset)))
+                    dataset = load_dataset("glue", tasks_to_glue[task_name], split="validation")
+
+                if OPTS.advglue.resume and task_name in results:
+                    current_progress = len(results[task_name]["predictions"])
+                    if current_progress == len(dataset):
+                        continue
+                    elif current_progress > len(dataset):
+                        raise ValueError("Incorrect dataset during resuming")
                     else:
-                        dataset = dataset[(current_progress + 1):]
-                    print(f"========== Resuming from {OPTS.advglue.out_file} ==========")
-            results, (prompt_tokens, completion_tokens, price) = classify(
-                OPTS, model, dataset, task_name, results, prompt_tokens, completion_tokens, price
-            )
+                        if isinstance(dataset, Dataset):
+                            dataset = dataset.select(range(current_progress + 1, len(dataset)))
+                        else:
+                            dataset = dataset[(current_progress + 1):]
+                        print(f"========== Resuming from {OPTS.advglue.out_file} ==========")
+                results, (prompt_tokens, completion_tokens, price) = classify(
+                    OPTS, model, dataset, task_name, results, prompt_tokens, completion_tokens, price
+                )
 
-            metric = load_metric("glue", task_name if task_name != 'mnli-mm' else 'mnli')
-            label_list = np.array(results[task_name]['labels'])
-            pred_list = np.array(results[task_name]['predictions'])
-            label_list[pred_list < 0] = 1
-            pred_list[pred_list < 0] = 0
-            assert len(label_list) == len(pred_list)
-            score = metric.compute(predictions=pred_list, references=label_list)
-            results[task_name]["score"] = score
+                metric = load_metric("glue", task_name if task_name != 'mnli-mm' else 'mnli')
+                label_list = np.array(results[task_name]['labels'])
+                pred_list = np.array(results[task_name]['predictions'])
+                label_list[pred_list < 0] = 1
+                pred_list[pred_list < 0] = 0
+                assert len(label_list) == len(pred_list)
+                score = metric.compute(predictions=pred_list, references=label_list)
+                results[task_name]["score"] = score
 
-            os.makedirs(os.path.dirname(OPTS.advglue.out_file), exist_ok=True)
-            with open(OPTS.advglue.out_file, "w") as f:
-                json.dump(results, f, indent=4)
-            print(f"# Prompt Tokens: {prompt_tokens} \t # Completion Tokens: {completion_tokens} \t Price: {price}")
+                os.makedirs(os.path.dirname(OPTS.advglue.out_file), exist_ok=True)
+                with open(OPTS.advglue.out_file, "w") as f:
+                    json.dump(results, f, indent=4)
+                print(f"# Prompt Tokens: {prompt_tokens} \t # Completion Tokens: {completion_tokens} \t Price: {price}")
 
     calculate_scores()
