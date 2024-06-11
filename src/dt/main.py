@@ -31,7 +31,7 @@ cs.store(name="joblib_config", node=BaseConfig)
 def main(raw_config: Union[DictConfig, Dict]) -> None:
     # The 'validator' methods will be called when you run the line below
     print("RawConfig", raw_config)
-    config: BaseConfig = raw_config  #OmegaConf.to_object(raw_config)
+    config: BaseConfig = OmegaConf.to_object(raw_config)
     print("BaseConfig", config)
     if not isinstance(config, BaseConfig):
         raise ValueError(f"Wrong type of configuration generated: {type(config)}")
