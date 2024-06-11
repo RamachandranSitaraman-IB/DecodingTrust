@@ -271,7 +271,7 @@ def classify(OPTS, model, dataset, task_name, current_results=None, prompt_token
 
 
 def main(OPTS):
-    evaluate_scores = False
+    evaluate_scores = True
     if evaluate_scores:
         TASK2SHORTPROMPT["mnli-mm"] = TASK2SHORTPROMPT["mnli"]
         if not os.path.exists("./.cache"):
