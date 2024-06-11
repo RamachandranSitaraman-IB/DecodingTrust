@@ -10,8 +10,8 @@ from dt.summarize import summarize_results
 
 PERSPECTIVES = {
     #"stereotype": "dt.perspectives.stereotype.bias_generation",
-    "advglue": "dt.perspectives.advglue.gpt_eval",
-    # "toxicity": "dt.perspectives.toxicity.text_generation_hydra",
+    #"advglue": "dt.perspectives.advglue.gpt_eval",
+     "toxicity": "dt.perspectives.toxicity.text_generation_hydra",
     # "fairness": "dt.perspectives.fairness.fairness_evaluation",
     # "privacy": "dt.perspectives.privacy.privacy_evaluation",
     # "adv_demonstration": "dt.perspectives.adv_demonstration.adv_demonstration_hydra",
