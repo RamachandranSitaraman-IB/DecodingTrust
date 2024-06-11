@@ -15,7 +15,7 @@ class AdvGLUEConfig:
     demo: bool = False  # Add demo examples
     data_file: Optional[str] = None  # Input AdvGLUE JSON file
     out_file: Optional[str] = None  # File to write evaluation results
-    no_adv: bool = False  # Evaluate benign result
+    no_adv: bool = True  # Evaluate benign result
     resume: bool = False  # Resume from previous results
     save_interval: int = 100  # Intervals to save results
     remove_newline: bool = False

@@ -11,7 +11,7 @@ BASE_MODELS = ["alpaca", "vicuna", "stable-vicuna"]
 def main():
     benign_files = glob(os.path.join(RESULT_DIR, "**", "*benign*.json"), recursive=True)
     target_models = [os.path.dirname(x) for x in benign_files]
-    target_models = ["gpt-3.5-turbo-0301"]
+    target_models = ["openai/gpt-3.5-turbo-0301"]
     print("In adv_stats", os.getcwd())
 
 
@@ -20,7 +20,7 @@ def main():
         "Task": [], "RR+NE": [], "TaskDataCount": [], "HasDemo": []
     }
 
-    base_dir = ""
+    base_dir = RESULT_DIR
     print("Target Models", target_models)
     for target_model in target_models:
         for base_model in BASE_MODELS:
