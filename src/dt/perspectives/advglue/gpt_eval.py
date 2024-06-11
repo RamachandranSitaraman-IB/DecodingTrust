@@ -286,6 +286,7 @@ def main(OPTS):
             elif OPTS.advglue.data_file:
                 # Use HF dataset
                 assert OPTS.advglue.data_file in ["alpaca", "vicuna", "stable-vicuna"]
+                print("In GPTEVAL ", os.getcwd())
                 datasets = load_dataset("AI-Secure/DecodingTrust", name="adv-glue-plus-plus")
                 datasets = datasets.filter(lambda example: example["model"] == OPTS.advglue.data_file)
             else:
