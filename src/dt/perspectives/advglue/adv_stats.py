@@ -12,6 +12,8 @@ def main():
     benign_files = glob(os.path.join(RESULT_DIR, "**", "*benign*.json"), recursive=True)
     target_models = [os.path.dirname(x) for x in benign_files]
     target_models = ["gpt-3.5-turbo-0301"]
+    print("In adv_stats", os.getcwd())
+
 
     df = {
         "BaseModel": [], "TargetModel": [], "Transferability": [], "Accuracy": [], "AccuracyNoRefusal": [],
