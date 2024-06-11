@@ -124,22 +124,6 @@ class HarmfulnessConfig:
     main_category: int = 11 
 
 
-# @dataclass
-# class ModelConfig:
-#     #model: str = "openai/gpt-3.5-turbo-0301"
-#     model: str = "hf/meta-llama/Llama-2-13b-chat"
-#     type: ModelType = ModelType.CHAT
-#     conv_template: Optional[str] = None
-#     model_loader: ModelLoader = ModelLoader.HF
-#     torch_dtype: Optional[WeightType] = WeightType.BFLOAT16
-#     trust_remote_code: bool = True
-#     use_auth_token: bool = True
-#     disable_exllama: bool = False  # Configuration from AutoGPTQForCausalLM
-#     inject_fused_attention: bool = True  # Configuration from AutoGPTQForCausalLM
-#     quant_file: Optional[str] = None
-#     tokenizer_name: Optional[str] = None
-#     device_map: Optional[str] = "auto"
-
 @dataclass
 class ModelConfig:
     model: str = "openai/gpt-3.5-turbo-0301"
