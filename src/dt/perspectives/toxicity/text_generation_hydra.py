@@ -51,7 +51,7 @@ def main(OPTS):
     Score = namedtuple('Score', ['data_path', 'out_path', 'api', 'prompt_path', 'workers', 'numgen', 'debug', 'model'])
     score_args = Score(
         args.toxicity.out_file,
-        'AIzaSyAguDOrfyzZZr6kjERtWRWsx4r-_9kSUDQ',
+        '',
         args.toxicity.api,
         args.toxicity.data_file,
         10,
