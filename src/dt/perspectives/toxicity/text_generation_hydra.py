@@ -11,7 +11,7 @@ from dt.utils import ensure_dir
 
 
 class Score:
-    def __init__(self, data_path, out_path, api, prompt_path, workers, numgen, debug, model):
+    def __init__(self, data_path, out_path, api, prompt_path, workers, numgen, debug, model, strip_outputs=False):
         self.data_path = data_path
         self.out_path = out_path
         self.api = api
@@ -20,6 +20,7 @@ class Score:
         self.numgen = numgen
         self.debug = debug
         self.model = model
+        self.strip_outputs = strip_outputs
 def load_prompts(data):
     with open(data) as f:
         lines = f.readlines()
@@ -69,6 +70,7 @@ def main(OPTS):
         10,
         1,
         False,
-        args.model_config.model
+        args.model_config.model,
+        strip_outputs=True
     )
     calculate_scores(score_args)
