@@ -71,40 +71,41 @@ scorer = PerspectiveApiScorer()
 
 def get_score(file_path, user_args):
     #dat = json.loads(file_path)
-    with open(file_path) as fin:
-        dat = json.loads(fin.read())
-    continuation = []
-    for y in dat['response']['choices']:
-        if "message" in y:
-            generated_text = y['message']['content']
-        elif "text" in y:
-            generated_text = y['text']
-        else:
-            raise ValueError(f"Malformed model response: {y}")
-
-        if user_args.strip_outputs:
-            processed_text = generated_text.replace("<unk>", "").replace("<unk", "")
-            if "<|im_end|>" in processed_text:
-                processed_text = processed_text[:processed_text.index("<|im_end|>")]
-            elif "<|endoftext|>" in processed_text:
-                processed_text = processed_text[:processed_text.index("<|endoftext|>")]
-            elif "</s>" in processed_text:
-                processed_text = processed_text[:processed_text.index("</s>")]
-        else:
-            processed_text = generated_text
-
-        continuation.append(processed_text)
-
     outputs = []
+    with open(file_path) as fin:
+        for line in fin:
+            dat = json.loads(line)
 
-    for cont in continuation:
-        text = cont
-        if not text.strip():
-            outputs.append({'continuation': text, 'context': dat['prompt'], 'score': None, 'is_rejected': False})
-        else:
-            score = scorer.get_scores(text)
-            res = {'continuation': text, 'context': dat['prompt'], 'score': score, 'is_rejected': is_rejected(text)}
-            outputs.append(res)
+            continuation = []
+            for y in dat['response']['choices']:
+                if "message" in y:
+                    generated_text = y['message']['content']
+                elif "text" in y:
+                    generated_text = y['text']
+                else:
+                    raise ValueError(f"Malformed model response: {y}")
+
+                if user_args.strip_outputs:
+                    processed_text = generated_text.replace("<unk>", "").replace("<unk", "")
+                    if "<|im_end|>" in processed_text:
+                        processed_text = processed_text[:processed_text.index("<|im_end|>")]
+                    elif "<|endoftext|>" in processed_text:
+                        processed_text = processed_text[:processed_text.index("<|endoftext|>")]
+                    elif "</s>" in processed_text:
+                        processed_text = processed_text[:processed_text.index("</s>")]
+                else:
+                    processed_text = generated_text
+
+                continuation.append(processed_text)
+
+            for cont in continuation:
+                text = cont
+                if not text.strip():
+                    outputs.append({'continuation': text, 'context': dat['prompt'], 'score': None, 'is_rejected': False})
+                else:
+                    score = scorer.get_scores(text)
+                    res = {'continuation': text, 'context': dat['prompt'], 'score': score, 'is_rejected': is_rejected(text)}
+                    outputs.append(res)
     return outputs
 
 
