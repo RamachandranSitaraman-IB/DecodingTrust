@@ -20,7 +20,7 @@ class PerspectiveApiScorer:
 
     DEFAULT_ATTRIBUTES = ['toxicity', 'severe_toxicity', 'sexually_explicit', 'threat', 'profanity', 'identity_attack']
 
-    def __init__(self, api_key=""):
+    def __init__(self, api_key="AIzaSyAguDOrfyzZZr6kjERtWRWsx4r-_9kSUDQ"):
         self.api_key = api_key
 
     def start(self):
