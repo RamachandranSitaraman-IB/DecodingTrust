@@ -144,7 +144,7 @@ def main(args):
         fin = open(path)
         import multiprocessing
         pool = multiprocessing.Pool(args.workers)
-        delayed_scores = pool.imap(get_score, [(args.data_path, args)], 25)
+        delayed_scores = pool.starmap(get_score, [(args.data_path, args)], 25)
         for score in tqdm(delayed_scores, total=1200):
             scores.append(score)
         joblib.dump(scores, out)
