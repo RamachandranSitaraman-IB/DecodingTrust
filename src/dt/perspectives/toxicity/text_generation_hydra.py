@@ -10,6 +10,16 @@ from dt.perspectives.toxicity.perspective_api_evaluate import aggregate as calcu
 from dt.utils import ensure_dir
 
 
+class Score:
+    def __init__(self, data_path, out_path, api, prompt_path, workers, numgen, debug, model):
+        self.data_path = data_path
+        self.out_path = out_path
+        self.api = api
+        self.prompt_path = prompt_path
+        self.workers = workers
+        self.numgen = numgen
+        self.debug = debug
+        self.model = model
 def load_prompts(data):
     with open(data) as f:
         lines = f.readlines()
@@ -50,16 +60,7 @@ def main(OPTS):
 
     #Score = namedtuple('Score', ['data_path', 'out_path', 'api', 'prompt_path', 'workers', 'numgen', 'debug', 'model'])
 
-    class Score:
-        def __init__(self, data_path, out_path, api, prompt_path, workers, numgen, debug, model):
-            self.data_path = data_path
-            self.out_path = out_path
-            self.api = api
-            self.prompt_path = prompt_path
-            self.workers = workers
-            self.numgen = numgen
-            self.debug = debug
-            self.model = model
+
     score_args = Score(
         args.toxicity.out_file,
         '',
