@@ -69,9 +69,10 @@ class PerspectiveApiScorer:
 scorer = PerspectiveApiScorer()
 
 
-def get_score(x, user_args):
-    dat = json.loads(x)
-
+def get_score(file_path, user_args):
+    #dat = json.loads(file_path)
+    with open(file_path) as fin:
+        dat = json.loads(fin.read())
     continuation = []
     for y in dat['response']['choices']:
         if "message" in y:
@@ -143,7 +144,7 @@ def main(args):
         fin = open(path)
         import multiprocessing
         pool = multiprocessing.Pool(args.workers)
-        delayed_scores = pool.imap(get_score, (fin, args), 25)
+        delayed_scores = pool.imap(get_score, (args.data_path, args), 25)
         for score in tqdm(delayed_scores, total=1200):
             scores.append(score)
         joblib.dump(scores, out)
