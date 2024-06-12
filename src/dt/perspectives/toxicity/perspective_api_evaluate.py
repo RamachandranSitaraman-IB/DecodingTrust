@@ -70,6 +70,7 @@ scorer = PerspectiveApiScorer()
 
 
 def get_score(x):
+    global  user_args
     dat = json.loads(x)
 
     continuation = []
