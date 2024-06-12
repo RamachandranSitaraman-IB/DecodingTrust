@@ -3,7 +3,7 @@ from typing import Union, Dict
 
 import hydra
 from importlib import import_module
-from dt.configs.configs import BaseConfig
+from dt.configs.configs import BaseConfig, ModelConfig
 from omegaconf import OmegaConf, DictConfig
 from hydra.core.config_store import ConfigStore
 from dt.summarize import summarize_results
@@ -26,12 +26,21 @@ cs.store(name="config", node=BaseConfig)
 cs.store(name="slurm_config", node=BaseConfig)
 cs.store(name="joblib_config", node=BaseConfig)
 
+# Define a default configuration
+default_config = {
+    'model_config': ModelConfig(),
+    # Add default values for other mandatory fields here
+}
 
 @hydra.main(config_path="configs", config_name="configs", version_base="1.2")
 def main(raw_config: Union[DictConfig, Dict]) -> None:
     # The 'validator' methods will be called when you run the line below
-    print("RawConfig", raw_config)
-    config: BaseConfig = OmegaConf.to_object(raw_config)
+
+    merged_config = OmegaConf.merge(default_config, raw_config)
+
+    config: BaseConfig = OmegaConf.to_object(merged_config)
+    # print("RawConfig", raw_config)
+    # config: BaseConfig = OmegaConf.to_object(raw_config)
     print("BaseConfig", config)
     if not isinstance(config, BaseConfig):
         raise ValueError(f"Wrong type of configuration generated: {type(config)}")
