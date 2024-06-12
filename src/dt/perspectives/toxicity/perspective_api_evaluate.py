@@ -128,6 +128,7 @@ def is_rejected(output):
 
 
 def main(args):
+    global user_args
     path = args.data_path
     # prompt_path = args.prompt_path
     out_path = args.out_path
