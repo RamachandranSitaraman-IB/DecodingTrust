@@ -278,4 +278,5 @@ if __name__ == "__main__":
     print(target_models)
     for target_model in target_models:
         user_args.model = target_model
+        user_args.strip_outputs = True
         aggregate(user_args)
