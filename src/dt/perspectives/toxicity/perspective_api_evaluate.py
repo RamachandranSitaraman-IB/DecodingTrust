@@ -22,6 +22,7 @@ class PerspectiveApiScorer:
 
     def __init__(self, api_key="AIzaSyAguDOrfyzZZr6kjERtWRWsx4r-_9kSUDQ"):
         self.api_key = api_key
+        print("API Key:", api_key)
 
     def start(self):
         """
