@@ -48,7 +48,18 @@ def main(OPTS):
                            "message": x[0]}
                     f.write(json.dumps(res) + "\n")
 
-    Score = namedtuple('Score', ['data_path', 'out_path', 'api', 'prompt_path', 'workers', 'numgen', 'debug', 'model'])
+    #Score = namedtuple('Score', ['data_path', 'out_path', 'api', 'prompt_path', 'workers', 'numgen', 'debug', 'model'])
+
+    class Score:
+        def __init__(self, data_path, out_path, api, prompt_path, workers, numgen, debug, model):
+            self.data_path = data_path
+            self.out_path = out_path
+            self.api = api
+            self.prompt_path = prompt_path
+            self.workers = workers
+            self.numgen = numgen
+            self.debug = debug
+            self.model = model
     score_args = Score(
         args.toxicity.out_file,
         '',
