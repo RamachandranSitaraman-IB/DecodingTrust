@@ -144,7 +144,7 @@ class ModelConfig:
 @dataclass
 class BaseConfig:
     # TODO: Handle device map - change HELM's default behavior
-    model_config: Optional[ModelConfig] = field(default_factory=ModelConfig)
+    model_config: Optional[ModelConfig] = ModelConfig() #field(default_factory=ModelConfig)
     disable_sys_prompt: Optional[bool] = False
 
     key: Optional[str] = None  # OpenAI API Key or Huggingface Secret
