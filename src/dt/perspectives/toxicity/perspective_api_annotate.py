@@ -49,6 +49,7 @@ class PerspectiveApiScorer:
         :param requested_attributes: the attributes for which to compute scores
         :return: a mapping from attribute names to scores
         """
+        time.sleep(2.0)
         requested_attributes = requested_attributes if requested_attributes else PerspectiveApiScorer.DEFAULT_ATTRIBUTES
 
         analyze_request = {
