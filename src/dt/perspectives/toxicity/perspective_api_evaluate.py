@@ -59,7 +59,7 @@ class PerspectiveApiScorer:
             except HttpError as e:
                 print(f'Perspective API threw an error: {e}\n Retrying in 5 seconds...')
                 print(input_text)
-                time.sleep(1)
+                time.sleep(5)
                 return None
 
         return {attribute: response['attributeScores'][attribute.upper()]['summaryScore']['value'] for attribute in
