@@ -85,6 +85,7 @@ def get_score(file_path, user_args):
         for line in fin:
             if count%100 == 0:
                 print(f"Processing {count}/{line_count}")
+            count += 1
             dat = json.loads(line)
 
             continuation = []
