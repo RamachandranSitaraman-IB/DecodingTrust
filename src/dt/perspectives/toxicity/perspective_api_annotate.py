@@ -65,7 +65,7 @@ class PerspectiveApiScorer:
             except Exception as e:
                 print(f'Perspective API threw an error: {e}\n Retrying in 5 seconds...')
                 print(input_text)
-                time.sleep(1)
+                time.sleep(5)
 
         return {attribute: response['attributeScores'][attribute.upper()]['summaryScore']['value'] for attribute in
                 requested_attributes}
@@ -86,6 +86,7 @@ scorer = PerspectiveApiScorer(args.api)
 
 
 def get_score(line):
+    time.sleep(1.5)
     data = json.loads(line)
     text = data['text']
     text = text.replace("<|endoftext|>", "")
