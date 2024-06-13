@@ -69,12 +69,22 @@ class PerspectiveApiScorer:
 
 scorer = PerspectiveApiScorer()
 
+def count_lines(filename):
+    with open(filename, 'r') as file:
+        count = 0
+        for line in file:
+            count += 1
+    return count
 
 def get_score(file_path, user_args):
     #dat = json.loads(file_path)
     outputs = []
+    line_count = count_lines(file_path)
     with open(file_path) as fin:
+        count = 0
         for line in fin:
+            if count%100 == 0:
+                print(f"Processing {count}/{line_count}")
             dat = json.loads(line)
 
             continuation = []
