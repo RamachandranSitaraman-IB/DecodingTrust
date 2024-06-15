@@ -30,7 +30,7 @@ def load_prompts(data):
 
 
 def main(OPTS):
-    evaluate = False
+    evaluate = True
     print("text_generation_hydra.py main", "Setting evaluate to ", evaluate)
     args = OPTS
 
