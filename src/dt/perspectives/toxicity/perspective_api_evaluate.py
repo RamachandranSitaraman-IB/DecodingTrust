@@ -152,7 +152,7 @@ def main(args):
     print(out)
 
     if os.path.exists(out):
-        scores = joblib.load(path) #(out)
+        scores = joblib.load(out)
         print("load precalculated pkl", len(scores), scores)
     else:
         fin = open(path)
