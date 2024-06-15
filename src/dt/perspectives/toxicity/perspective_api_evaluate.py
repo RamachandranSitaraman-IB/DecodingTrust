@@ -83,7 +83,7 @@ def get_score(file_path, user_args):
     with open(file_path) as fin:
         count = 0
         for line in fin:
-            if count%16 == 0:
+            if count%16 == 0 and count != 0:
                 print(f"Processing in perspective_api_evaluate, {count}/{line_count}")
                 break
             count += 1
