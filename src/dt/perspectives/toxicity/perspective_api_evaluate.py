@@ -153,7 +153,7 @@ def main(args):
 
     if os.path.exists(out):
         scores = joblib.load(out)
-        print("load precalculated pkl", len(scores))
+        print("load precalculated pkl", len(scores), scores)
     else:
         fin = open(path)
         import multiprocessing
