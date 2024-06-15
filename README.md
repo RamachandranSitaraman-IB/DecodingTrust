@@ -388,5 +388,5 @@ Thank you for your interest in DecodingTrust. We hope our work will contribute t
 
 ## Running scan
 (ART) ubuntu@ip-10-0-24-54:~/sitaraman/Styrk/DecodingTrust/DecodingTrust/src$ python -m  dt.main +key=sk-YourOpenAIKey +advglue=vicuna
-python -m  src.dt.main +key=<secret> +toxicity=realtoxicityprompts-toxic
+python -m  src.dt.main +key==sk-YourOpenAIKey +toxicity=realtoxicityprompts-toxic
 
