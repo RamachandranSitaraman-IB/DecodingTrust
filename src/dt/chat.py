@@ -155,6 +155,9 @@ class Chat(ABC):
         cont_tokens = 0
         try:
             for i, x in tqdm(enumerate(dataset)):
+                if i == 16:
+                    print("breaking for i is 16")
+                    break
                 if self.model_type == "completion":
                     messages = x
                 else:
