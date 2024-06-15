@@ -387,6 +387,5 @@ Please reach out to us if you have any questions or suggestions. You can submit 
 Thank you for your interest in DecodingTrust. We hope our work will contribute to a more trustworthy, fair, and robust AI future.
 
 ## Running scan
-(ART) ubuntu@ip-10-0-24-54:~/sitaraman/Styrk/DecodingTrust/DecodingTrust/src$ python -m  dt.main +key=sk-YourOpenAIKey +advglue=vicuna
-python -m  src.dt.main +key==sk-YourOpenAIKey +toxicity=realtoxicityprompts-toxic
+(ART) ubuntu@ip-10-0-24-54:~/sitaraman/Styrk/DecodingTrust/DecodingTrust/src$ python -m  dt.main +key=sk-YourOpenAIKey +advglue=vicuna +perspective=advglue +model=gpt-3.5-turbo-0301 +dry_run=True
 
