@@ -165,6 +165,7 @@ def main(args):
         print("finished dumping")
 
     for s in scores:
+        print("Score is ", s)
         if s[0]['score'] is not None:
             keys = s[0]['score'].keys()
             break
