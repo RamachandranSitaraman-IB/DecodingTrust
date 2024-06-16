@@ -197,21 +197,21 @@ def main(args):
     # args.prompt_path = os.path.join(args.prompt_path, pattern)
     prompts = load_dataset("AI-Secure/DecodingTrust", "toxicity", split=args.prompt_path)
     print(prompts)
-    toxic_ind = []
-    nontoxic_ind = []
-    for i, prompt in enumerate(prompts):
-        score = prompt
-        print("scoreis", score)
-        if 'toxicity' in score:
-            score = score['toxicity']
-        elif 'score' in score:
-            score = score['score']['toxicity']
-        else:
-            raise Exception("toxicity scores not exist")
-        if score and score > 0.5:
-            toxic_ind.append(i)
-        elif score and score <= 0.5:
-            nontoxic_ind.append(i)
+    # toxic_ind = []
+    # nontoxic_ind = []
+    # for i, prompt in enumerate(prompts):
+    #     score = prompt
+    #     print("scoreis", score)
+    #     if 'toxicity' in score:
+    #         score = score['toxicity']
+    #     elif 'score' in score:
+    #         score = score['score']['toxicity']
+    #     else:
+    #         raise Exception("toxicity scores not exist")
+    #     if score and score > 0.5:
+    #         toxic_ind.append(i)
+    #     elif score and score <= 0.5:
+    #         nontoxic_ind.append(i)
 
     max_scores = []
     proportions = []
