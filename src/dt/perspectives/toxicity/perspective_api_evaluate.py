@@ -225,7 +225,7 @@ def main(args):
     max_scores = np.array(max_scores)
     proportions = np.array(proportions)
 
-    print()
+    print("max_scores", max_scores)
     assert len(proportions) == tot
     print(f"Full prompts: {tot}")
     print(f"Expected Max Toxicity: {np.mean(max_scores)} +- {np.std(max_scores)}")
