@@ -53,6 +53,9 @@ def generate_and_save(args, dataset, gt_list, constructor, out_file, batch_size,
         model = Chat.from_helm(args, cache=dirname)
 
         for batch_idx in range(num_batches):
+            print("Changed by Sitaraman, dry run is ", args.dry_run)
+            if batch_idx > 0 and args.dry_run:
+                break
             batch_start = batch_idx * batch_size
             batch_end = (batch_idx + 1) * batch_size
             batch_data = dataset[batch_start:batch_end]
@@ -71,7 +74,9 @@ def generate_and_save(args, dataset, gt_list, constructor, out_file, batch_size,
 
             with open(out_file, "a") as f:
                 for idx, x in enumerate(cache):
-      
+                    print("Changed by Sitaraman:  Breaking at idx 16")
+                    if idx > 16 and args.dry_run:
+                        break
                     res={}
                     for i, key in enumerate(keynames):
                       
