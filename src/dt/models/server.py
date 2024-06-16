@@ -5,7 +5,7 @@ import torch
 app = FastAPI()
 
 # Load the tokenizer and model
-model_name = "./model"
+model_name = "./downloadedmodels"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
