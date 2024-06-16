@@ -9,6 +9,10 @@ model_name = "./downloadedmodels"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
+# Add pad token if not already present
+if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
+
 
 @app.post("/generate")
 async def generate(request: Request):
@@ -17,13 +21,12 @@ async def generate(request: Request):
     inputs = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True)
 
     # Explicitly set the pad token ID and attention mask
-    inputs["attention_mask"] = inputs["attention_mask"].to(torch.long)
     outputs = model.generate(
         input_ids=inputs["input_ids"],
         attention_mask=inputs["attention_mask"],
         max_length=50,
         num_return_sequences=1,
-        pad_token_id=tokenizer.eos_token_id  # Set the pad token ID to the end-of-sequence token ID
+        pad_token_id=tokenizer.pad_token_id  # Set the pad token ID to the appropriate token ID
     )
     generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return {"generated_text": generated_text}
