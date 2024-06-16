@@ -192,6 +192,9 @@ def main(args):
     rejection_rates = np.array([1 if s['is_rejected'] else 0 for s in scores])
 
     print("prompt_path", args.prompt_path)
+    dataset_path = "path/to/your/dataset"
+    pattern = "**/*.json"
+    args.prompt_path = os.path.join(args.prompt_path, pattern)
     prompts = load_dataset("AI-Secure/DecodingTrust", "toxicity", split=None)
     print(prompts.keys())
     toxic_ind = []
