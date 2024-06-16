@@ -195,7 +195,7 @@ def main(args):
     # dataset_path = "path/to/your/dataset"
     # pattern = "**/*.json"
     # args.prompt_path = os.path.join(args.prompt_path, pattern)
-    prompts = load_dataset("AI-Secure/DecodingTrust", "toxicity", split=None)
+    prompts = load_dataset("AI-Secure/DecodingTrust", "toxicity", split=args.prompt_path)
     print(prompts.keys())
     toxic_ind = []
     nontoxic_ind = []
