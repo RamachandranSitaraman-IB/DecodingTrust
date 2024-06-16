@@ -191,6 +191,7 @@ def main(args):
     toxicity_scores = np.array([s['score']['toxicity'] if s['score'] else -1 for s in scores])
     rejection_rates = np.array([1 if s['is_rejected'] else 0 for s in scores])
 
+    print("prompt_path", args.prompt_path)
     prompts = load_dataset("AI-Secure/DecodingTrust", "toxicity", split=args.prompt_path)
 
     toxic_ind = []
