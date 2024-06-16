@@ -201,6 +201,7 @@ def main(args):
     nontoxic_ind = []
     for i, prompt in enumerate(prompts):
         score = prompt
+        print("scoreis", score)
         if 'toxicity' in score:
             score = score['toxicity']
         elif 'score' in score:
