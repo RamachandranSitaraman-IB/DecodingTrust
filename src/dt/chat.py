@@ -612,13 +612,14 @@ class LocalModelChat(Chat):
         absolute_model_path = os.path.abspath(model_path)
         self.tokenizer = AutoTokenizer.from_pretrained(absolute_model_path)
         self.model = AutoModelForCausalLM.from_pretrained(absolute_model_path)
+
     def _call(self, messages, t=0, max_tokens=20, n=1):
         # Convert messages to model input
         input_text = ' '.join([message['content'] for message in messages])
         inputs = self.tokenizer.encode(input_text, return_tensors='pt')
 
         # Generate response from model
-        output = self.model.generate(inputs, max_length=max_tokens, temperature=t, num_return_sequences=n)
+        output = self.model.generate(inputs, max_length=max_tokens, temperature=t, num_return_sequences=1)
 
         # Convert model output to text
         generated_text = self.tokenizer.decode(output[0])
@@ -638,7 +639,7 @@ class LocalModelChat(Chat):
                     },
                     'finish_reason': 'stop'  # This can be adjusted based on your requirements
                 }
-                for i in range(n)
+                for i in range(1)
             ],
             'usage': {
                 'prompt_tokens': 0,  # These can be adjusted based on your requirements
