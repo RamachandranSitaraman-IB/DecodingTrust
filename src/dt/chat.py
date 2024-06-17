@@ -13,6 +13,8 @@ from helm.proxy.clients.huggingface_model_registry import HuggingfaceModelQuanti
 from helm.proxy.clients.huggingface_model_registry import ModelLoader, WeightType
 from dt.response import Response
 
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
 
 class Chat(ABC):
     def __init__(self, model_name, model_type: str, prompt_price: float, completion_price: float):
@@ -42,7 +44,10 @@ class Chat(ABC):
 
         model_name: str = main_config.model_config.model
         print("ModelName", model_name)
-        if model_name.lower().startswith("openai/"):
+        if model_name.lower().startswith('local:'):
+            model_path = model_name.split('local:')[1]
+            return LocalModelChat(model_path, **kwargs)
+        elif model_name.lower().startswith("openai/"):
             return OpenAIChat(model_name, **kwargs)
         elif model_name.startswith("hf/"):
             kwargs.pop("api_key")
@@ -599,3 +604,46 @@ class ClaudeChat(Chat):
             }
         })
         return response.to_dict()
+
+class LocalModelChat(Chat):
+    def __init__(self, model_path: str, **kwargs):
+        super().__init__(model_path, model_type="chat", prompt_price=0, completion_price=0)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
+        self.model = AutoModelForCausalLM.from_pretrained(model_path)
+
+    def _call(self, messages, t=0, max_tokens=20, n=1):
+        # Convert messages to model input
+        input_text = ' '.join([message['content'] for message in messages])
+        inputs = self.tokenizer.encode(input_text, return_tensors='pt')
+
+        # Generate response from model
+        output = self.model.generate(inputs, max_length=max_tokens, temperature=t, num_return_sequences=n)
+
+        # Convert model output to text
+        generated_text = self.tokenizer.decode(output[0])
+
+        # Create response dictionary
+        response = {
+            'id': f'chatcmpl-{shortuuid.random()}',
+            'object': 'chat.completion',
+            'created': int(time.time()),
+            'model': self.model_name,
+            'choices': [
+                {
+                    'index': i,
+                    'message': {
+                        'role': 'assistant',
+                        'content': generated_text
+                    },
+                    'finish_reason': 'stop'  # This can be adjusted based on your requirements
+                }
+                for i in range(n)
+            ],
+            'usage': {
+                'prompt_tokens': 0,  # These can be adjusted based on your requirements
+                'completion_tokens': 0,
+                'total_tokens': 0
+            }
+        }
+
+        return response
