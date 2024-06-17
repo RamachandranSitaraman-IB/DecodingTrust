@@ -128,7 +128,7 @@ class HarmfulnessConfig:
 class ModelConfig:
     model: str = "openai/gpt-3.5-turbo-0301"
     #model: str = "src/dt/models/downloadedmodels"
-    model: str = "openai/gpt-4-0314"
+    model: str = "openai/gpt-4o"
     #model: str = "hf/meta-llama/Llama-2-13b-chat"
     type: ModelType = ModelType.CHAT
     conv_template: Optional[str] = None
