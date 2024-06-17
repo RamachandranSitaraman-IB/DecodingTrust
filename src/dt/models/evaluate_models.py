@@ -2,7 +2,7 @@ import openai
 from helm import evaluate  # Hypothetical import, adjust according to actual CRFM-HELM library
 import os
 # Set your OpenAI API key
-openai.api_key = os.getenv("OPENAIKEY')   #'your-api-key-here'
+openai.api_key = os.getenv('OPENAIKEY')   #'your-api-key-here'
 
 def get_openai_response(prompt, model="text-davinci-003"):
     response = openai.Completion.create(
