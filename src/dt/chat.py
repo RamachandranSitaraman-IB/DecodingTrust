@@ -608,9 +608,9 @@ class ClaudeChat(Chat):
 class LocalModelChat(Chat):
     def __init__(self, model_path: str, **kwargs):
         super().__init__(model_path, model_type="chat", prompt_price=0, completion_price=0)
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
-        self.model = AutoModelForCausalLM.from_pretrained(model_path)
-
+        absolute_model_path = os.path.abspath(model_path)
+        self.tokenizer = AutoTokenizer.from_pretrained(absolute_model_path)
+        self.model = AutoModelForCausalLM.from_pretrained(absolute_model_path)
     def _call(self, messages, t=0, max_tokens=20, n=1):
         # Convert messages to model input
         input_text = ' '.join([message['content'] for message in messages])
