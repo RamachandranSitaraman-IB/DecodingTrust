@@ -12,6 +12,7 @@ from helm.proxy.clients.auto_client import AutoClient
 from helm.proxy.clients.huggingface_model_registry import HuggingfaceModelQuantizationConfig
 from helm.proxy.clients.huggingface_model_registry import ModelLoader, WeightType
 from dt.response import Response
+import os
 
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
