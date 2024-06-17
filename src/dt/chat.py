@@ -616,10 +616,15 @@ class LocalModelChat(Chat):
     def _call(self, messages, t=0, max_tokens=20, n=1):
         # Convert messages to model input
         input_text = ' '.join([message['content'] for message in messages])
-        inputs = self.tokenizer.encode(input_text, return_tensors='pt')
+        inputs = self.tokenizer.encode_plus(input_text, return_tensors='pt')
+
+        # Generate attention mask
+        attention_mask = inputs['attention_mask']
 
         # Generate response from model
-        output = self.model.generate(inputs, max_length=max_tokens, temperature=t, num_return_sequences=1)
+        output = self.model.generate(inputs['input_ids'], attention_mask=attention_mask,
+                                     pad_token_id=self.tokenizer.eos_token_id, max_length=max_tokens, temperature=t,
+                                     num_return_sequences=1)
 
         # Convert model output to text
         generated_text = self.tokenizer.decode(output[0])
