@@ -1,5 +1,4 @@
-#from helm.proxy.clients.huggingface_model_registry import ModelLoader, WeightType
-from helm.
+from helm.proxy.clients.huggingface_model_registry import ModelLoader, WeightType
 from dataclasses import dataclass, field
 from typing import Optional, List, Union
 from enum import Enum, auto
