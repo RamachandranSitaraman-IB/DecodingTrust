@@ -44,8 +44,8 @@ class Chat(ABC):
 
         model_name: str = main_config.model_config.model
         print("ModelName", model_name)
-        if model_name.lower().startswith('local:'):
-            model_path = model_name.split('local:')[1]
+        if model_name.lower().startswith('local'):
+            model_path = model_name.split('local')[1]
             return LocalModelChat(model_path, **kwargs)
         elif model_name.lower().startswith("openai/"):
             return OpenAIChat(model_name, **kwargs)
