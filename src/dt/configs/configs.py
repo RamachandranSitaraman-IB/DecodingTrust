@@ -1,4 +1,5 @@
-from helm.proxy.clients.huggingface_model_registry import ModelLoader, WeightType
+#from helm.proxy.clients.huggingface_model_registry import ModelLoader, WeightType
+from helm.
 from dataclasses import dataclass, field
 from typing import Optional, List, Union
 from enum import Enum, auto
@@ -128,7 +129,7 @@ class HarmfulnessConfig:
 class ModelConfig:
     model: str = "openai/gpt-3.5-turbo-0301"
     #model: str = "src/dt/models/downloadedmodels"
-    model: str = "openai/gpt-4o"
+    model: str = " openai/gpt-4o-2024-05-13"
     #model: str = "hf/meta-llama/Llama-2-13b-chat"
     type: ModelType = ModelType.CHAT
     conv_template: Optional[str] = None
