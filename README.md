@@ -390,3 +390,6 @@ Thank you for your interest in DecodingTrust. We hope our work will contribute t
 (ART) ubuntu@ip-10-0-24-54:~/sitaraman/Styrk/DecodingTrust/DecodingTrust/src$ python -m  dt.main +key=sk-YourOpenAIKey +advglue=vicuna +perspective=advglue +model=gpt-3.5-turbo-0301 +dry_run=True
 #
 #python -m  src.dt.main +key=sk-proj-YourOpenAPIKey +toxicity=realtoxicityprompts-toxic +privacy=[email_extraction_context50,pii_jailbreak_zeroshot] +dry_run=True
+
+## datasets
+pip install --upgrade datasets
